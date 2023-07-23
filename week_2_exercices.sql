@@ -4,8 +4,8 @@ USE little_lemon_db;
 -- Exercise: Create a virtual table to summarize data                |
 -- -------------------------------------------------------------------
 
--- Task 1 
--- ---------------------------------------------
+-- Task 1 : Create virtual table called OrderView
+-- --------------------------------------------------
 
 CREATE VIEW OrdersView AS
     SELECT 
@@ -16,7 +16,7 @@ CREATE VIEW OrdersView AS
 select * from OrdersView;
 
 
--- Task 2
+-- Task 2 : Extract information from Customers, Orders, Menus and MenuItems tables
 -- --------------------------------------------
 
 SELECT 
@@ -37,8 +37,8 @@ FROM
 
 
 
--- Task 3 
--- ----------------------------------------------------
+-- Task 3 : find all menu items for which more than 2 orders have been placed.
+-- ----------------------------------------------------------------------------
 
 SELECT 
     MenuName
@@ -58,7 +58,7 @@ WHERE
 -- Exercise: Create optimized queries to manage and analyze data                  |
 -- --------------------------------------------------------------------------------
 
--- Task 1 
+-- Task 1 : Create stored procedure called GetMaxQuantity 
 -- ------------------------------------------------------------
 
 delimiter //
@@ -68,7 +68,8 @@ select max(quantity) as "Max Quantity in Orders" from orders;
 end //
 call GetMaxQuantity();
 
--- Task 2
+
+-- Task 2 : Create prepared statement called GetOrderDetail
 -- ------------------------------------------------------------
 
 prepare GetOrderDetail from "select OrderID, Quantity, Cost from Orders where OrderID = ?";
@@ -76,7 +77,7 @@ set @id = 5;
 execute GetOrderDetail using @id;
 
 
--- Task 3
+-- Task 3 : create a stored procedure called CancelOrder
 -- -------------------------------------------------------------
 
 delimiter //
@@ -93,8 +94,8 @@ call CancelOrder(5);
 -- Create SQL queries to check available bookings based on user input  |
 -- --------------------------------------------------------------------
 
--- Task 1
--- --------------------------------------------------------------------
+-- Task 1 : simple INSERT statement to add data into the bookings table
+-- ----------------------------------------------------------------------
 INSERT INTO Bookings (BookingID, BookingDate, TableNumber, CustomerID)
 VALUES
 (1, "2022-10-10", 5,  1),
@@ -103,7 +104,7 @@ VALUES
 (4, "2022-10-13", 2, 1);
 
 
--- Task 2
+-- Task 2 : create stored procedure called CheckBooking
 -- ----------------------------------------------------------------
 delimiter //
 CREATE PROCEDURE CheckBooking (IN booking_date DATE, IN table_no INT)
@@ -119,7 +120,7 @@ END //
 call CheckBooking("2022,11,12", 5);
 
 
--- Task 3
+-- Task 3 : create new stored procedure called AddValidBooking
 -- -------------------------------------------------------------------------
 
 delimiter //
@@ -146,7 +147,7 @@ CALL AddValidBooking("2022-12-17", 7);
 -- Exercise: Create SQL queries to add and update bookings   |
 -- -----------------------------------------------------------
 
--- Task 1
+-- Task 1 : create a new procedure called AddBooking
 -- ----------------------------------------------------------
 
 DELIMITER //
@@ -160,7 +161,7 @@ END //
 CALL AddBooking(9, 3, 4, "2022-12-30");
 
 
--- Task 2
+-- Task 2 : create new procedure called UpdateBooking
 -- ----------------------------------------------------------------------
 
 DELIMITER //
@@ -174,7 +175,7 @@ CALL UpdateBooking(9, "2022-12-17");
 
 
 
--- Task 3
+-- Task 3 : create new procedure called CancelBooking
 -- -----------------------------------------------------------------
 
 DELIMITER //
